@@ -1,0 +1,6 @@
+@CedPlan.Api_HostAddress = http://localhost:5102
+
+GET {{CedPlan.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

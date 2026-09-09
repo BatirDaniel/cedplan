@@ -1,0 +1,215 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --radius: 0.5rem;
+
+  /* Neutral base: zinc */
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.141 0.005 285.8);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.141 0.005 285.8);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.141 0.005 285.8);
+  --muted: oklch(0.967 0.001 286.4);
+  --muted-foreground: oklch(0.492 0.007 285.9);
+  --border: oklch(0.92 0.004 286.3);
+  --input: oklch(0.92 0.004 286.3);
+  --ring: oklch(0.554 0.192 262.2);
+
+  /* Single accent: blue */
+  --primary: oklch(0.554 0.192 262.2);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.967 0.001 286.4);
+  --secondary-foreground: oklch(0.21 0.006 285.9);
+  --accent: oklch(0.967 0.001 286.4);
+  --accent-foreground: oklch(0.21 0.006 285.9);
+  --destructive: oklch(0.577 0.245 27.3);
+  --destructive-foreground: oklch(0.985 0 0);
+
+  /* Sidebar (shell) */
+  --sidebar: oklch(0.185 0.012 285.9);
+  --sidebar-foreground: oklch(0.92 0.004 286.3);
+  --sidebar-primary: oklch(0.554 0.192 262.2);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.26 0.01 285.9);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(0.28 0.01 285.9);
+  --sidebar-ring: oklch(0.554 0.192 262.2);
+
+  /* Status — shown as small dots / colored text, never large fills */
+  --status-todo: oklch(0.551 0.014 285.9);
+  --status-progress: oklch(0.623 0.188 259.8);
+  --status-review: oklch(0.769 0.165 70.1);
+  --status-done: oklch(0.648 0.15 160.1);
+  --status-onhold: oklch(0.705 0.191 47.6);
+  --status-rejected: oklch(0.577 0.245 27.3);
+
+  /* Priority */
+  --priority-low: oklch(0.551 0.014 285.9);
+  --priority-med: oklch(0.623 0.188 259.8);
+  --priority-high: oklch(0.705 0.191 47.6);
+  --priority-urgent: oklch(0.577 0.245 27.3);
+
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+  --font-serif: 'Lora', ui-serif, Georgia, 'Times New Roman', serif;
+  --font-size-base: 13px;
+}
+
+* {
+  scrollbar-color: var(--muted-foreground) transparent;
+  scrollbar-width: thin;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: color-mix(in oklch, var(--foreground) 20%, transparent);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: color-mix(in oklch, var(--foreground) 35%, transparent);
+  background-clip: padding-box;
+}
+
+.wiki-prose h1 { font-size: 1.8em; font-weight: 600; margin: 1em 0 0.4em; }
+.wiki-prose h2 { font-size: 1.4em; font-weight: 600; margin: 1em 0 0.4em; }
+.wiki-prose h3 { font-size: 1.15em; font-weight: 600; margin: 1em 0 0.4em; }
+.wiki-prose p { margin: 0.6em 0; }
+.wiki-prose ul, .wiki-prose ol { margin: 0.6em 0; padding-left: 1.4em; }
+.wiki-prose ul { list-style: disc; }
+.wiki-prose ol { list-style: decimal; }
+.wiki-prose ul[data-type='taskList'] { list-style: none; padding-left: 0.2em; }
+.wiki-prose ul[data-type='taskList'] li { display: flex; align-items: flex-start; gap: 0.5em; }
+.wiki-prose ul[data-type='taskList'] li > label { margin-top: 0.3em; }
+.wiki-prose blockquote { border-left: 3px solid var(--border); padding-left: 1em; color: var(--muted-foreground); margin: 0.8em 0; }
+.wiki-prose code { background: var(--muted); border-radius: 4px; padding: 0.1em 0.35em; font-family: var(--font-mono); font-size: 0.9em; }
+.wiki-prose pre { background: var(--muted); border-radius: 8px; padding: 0.8em 1em; overflow-x: auto; margin: 0.8em 0; }
+.wiki-prose pre code { background: none; padding: 0; }
+.wiki-prose a { color: var(--primary); text-decoration: underline; text-underline-offset: 2px; }
+.wiki-prose img { max-width: 100%; border-radius: 8px; margin: 0.6em 0; }
+.wiki-prose table { border-collapse: collapse; width: 100%; margin: 0.8em 0; }
+.wiki-prose th, .wiki-prose td { border: 1px solid var(--border); padding: 0.4em 0.6em; text-align: left; }
+.wiki-prose th { background: var(--muted); font-weight: 600; }
+.wiki-prose hr { border: none; border-top: 1px solid var(--border); margin: 1.2em 0; }
+
+.dark {
+  --background: oklch(0.141 0.005 285.8);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.185 0.012 285.9);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.185 0.012 285.9);
+  --popover-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.26 0.01 285.9);
+  --muted-foreground: oklch(0.65 0.01 286);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 15%);
+  --ring: oklch(0.623 0.188 259.8);
+
+  --primary: oklch(0.623 0.188 259.8);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.26 0.01 285.9);
+  --secondary-foreground: oklch(0.985 0 0);
+  --accent: oklch(0.26 0.01 285.9);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.65 0.22 27.3);
+  --destructive-foreground: oklch(0.985 0 0);
+
+  --sidebar: oklch(0.13 0.005 285.8);
+  --sidebar-foreground: oklch(0.92 0.004 286.3);
+  --sidebar-primary: oklch(0.623 0.188 259.8);
+  --sidebar-primary-foreground: oklch(0.985 0 0);
+  --sidebar-accent: oklch(0.22 0.008 285.9);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(1 0 0 / 8%);
+  --sidebar-ring: oklch(0.623 0.188 259.8);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  --color-status-todo: var(--status-todo);
+  --color-status-progress: var(--status-progress);
+  --color-status-review: var(--status-review);
+  --color-status-done: var(--status-done);
+  --color-status-onhold: var(--status-onhold);
+  --color-status-rejected: var(--status-rejected);
+
+  --color-priority-low: var(--priority-low);
+  --color-priority-med: var(--priority-med);
+  --color-priority-high: var(--priority-high);
+  --color-priority-urgent: var(--priority-urgent);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --font-serif: var(--font-serif);
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  line-height: 1.5;
+  background: var(--background);
+  color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+  border-color: var(--border);
+}
+
+.font-mono-key {
+  font-family: var(--font-mono);
+  font-feature-settings: 'tnum' 1;
+}
