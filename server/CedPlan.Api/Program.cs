@@ -1,8 +1,12 @@
 using System.Text;
-using CedPlan.Api.Data;
-using CedPlan.Api.Hubs;
-using CedPlan.Api.Models;
-using CedPlan.Api.Services;
+using CedPlan.Application.Projects;
+using CedPlan.Application.WorkPackages;
+using CedPlan.Domain.Access;
+using CedPlan.Infrastructure.Access;
+using CedPlan.Infrastructure.Persistence;
+using CedPlan.Infrastructure.Hubs;
+using CedPlan.Infrastructure.Persistence.Entities;
+using CedPlan.Infrastructure.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -57,6 +61,27 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole<Guid>>(options =>
 builder.Services.AddScoped<TokenService>();
 builder.Services.AddScoped<NotificationService>();
 builder.Services.AddScoped<PermissionService>();
+builder.Services.AddScoped<IProjectAccess, ProjectAccess>();
+
+// Projects bounded-context use cases (CedPlan.Application.Projects) — one class per operation.
+builder.Services.AddScoped<ProjectQueries>();
+builder.Services.AddScoped<CreateProject>();
+builder.Services.AddScoped<UpdateProject>();
+builder.Services.AddScoped<DeleteProject>();
+builder.Services.AddScoped<AddProjectMember>();
+builder.Services.AddScoped<UpdateProjectMemberRole>();
+builder.Services.AddScoped<RemoveProjectMember>();
+
+// WorkPackages bounded-context use cases (CedPlan.Application.WorkPackages).
+builder.Services.AddScoped<WorkPackageQueries>();
+builder.Services.AddScoped<CreateWorkPackage>();
+builder.Services.AddScoped<UpdateWorkPackage>();
+builder.Services.AddScoped<MoveWorkPackage>();
+builder.Services.AddScoped<UpdateWorkPackageStatus>();
+builder.Services.AddScoped<UpdateWorkPackageSchedule>();
+builder.Services.AddScoped<DeleteWorkPackage>();
+builder.Services.AddScoped<AddWorkPackageComment>();
+builder.Services.AddScoped<AddWorkPackageTimeEntry>();
 builder.Services.AddSignalR();
 
 var jwtKey = builder.Configuration["Jwt:Key"]!;
