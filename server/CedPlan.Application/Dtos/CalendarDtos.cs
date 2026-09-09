@@ -1,6 +1,6 @@
-using CedPlan.Api.Models;
+using CedPlan.Domain.Enums;
 
-namespace CedPlan.Api.Dtos;
+namespace CedPlan.Application.Dtos;
 
 public record CalendarAttendeeDto(Guid UserId, string FullName, string AvatarColor, AttendeeResponse Response, bool IsOptional);
 

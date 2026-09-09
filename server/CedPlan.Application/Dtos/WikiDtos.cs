@@ -1,6 +1,6 @@
-using CedPlan.Api.Models;
+using CedPlan.Domain.Enums;
 
-namespace CedPlan.Api.Dtos;
+namespace CedPlan.Application.Dtos;
 
 public record WikiPageDto(
     Guid Id, Guid ProjectId, WikiNodeType NodeType, Guid? ParentId, double Position,

@@ -1,8 +1,10 @@
+using CedPlan.Domain.Enums;
 using System.Text.Json;
-using CedPlan.Api.Data;
-using CedPlan.Api.Dtos;
-using CedPlan.Api.Models;
-using CedPlan.Api.Services;
+using CedPlan.Infrastructure.Persistence;
+using CedPlan.Application.Dtos;
+using CedPlan.Infrastructure.Notifications;
+using CedPlan.Infrastructure.Persistence.Entities;
+using CedPlan.Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -28,7 +30,7 @@ public class UsersController : ControllerBase
         _permissions = permissions;
     }
 
-    private static Dtos.UserDto ToDto(ApplicationUser u) => new(
+    private static UserDto ToDto(ApplicationUser u) => new(
         u.Id, u.FullName, u.FirstName, u.LastName, u.DisplayName, u.Email!, u.Phone, u.JobTitle, u.Department,
         u.Location, u.Bio, u.AvatarColor, u.Status, u.StatusMessage, u.PreferredLanguage, u.Theme, u.Timezone,
         u.DateFormat, u.TimeFormat, u.FirstDayOfWeek, u.DefaultView, u.ShowCompletedTasks, u.ConfirmBeforeDelete,
@@ -38,7 +40,7 @@ public class UsersController : ControllerBase
     private async Task<ApplicationUser> RequireUser() => (await _db.Users.FindAsync(this.GetUserId()))!;
 
     [HttpGet("me")]
-    public async Task<ActionResult<Dtos.UserDto>> Me()
+    public async Task<ActionResult<UserDto>> Me()
     {
         var user = await _db.Users.FindAsync(this.GetUserId());
         if (user == null) return NotFound();
@@ -46,7 +48,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpPut("me/profile")]
-    public async Task<ActionResult<Dtos.UserDto>> UpdateProfile(UpdateProfileDto dto)
+    public async Task<ActionResult<UserDto>> UpdateProfile(UpdateProfileDto dto)
     {
         var user = await RequireUser();
         if (string.IsNullOrWhiteSpace(dto.FullName))
@@ -70,7 +72,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpPut("me/preferences")]
-    public async Task<ActionResult<Dtos.UserDto>> UpdatePreferences(UpdatePreferencesDto dto)
+    public async Task<ActionResult<UserDto>> UpdatePreferences(UpdatePreferencesDto dto)
     {
         var user = await RequireUser();
 
@@ -270,7 +272,7 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<Dtos.UserDto>>> Search([FromQuery] string? q, [FromQuery] string? department)
+    public async Task<ActionResult<List<UserDto>>> Search([FromQuery] string? q, [FromQuery] string? department)
     {
         var query = _db.Users.AsQueryable();
         if (!string.IsNullOrWhiteSpace(q))

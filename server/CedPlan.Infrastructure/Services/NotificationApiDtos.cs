@@ -1,4 +1,4 @@
-namespace CedPlan.Api.Dtos;
+namespace CedPlan.Infrastructure.Notifications;
 
 public record NotificationDto(
     Guid Id, string Type, string Title, string? Body,

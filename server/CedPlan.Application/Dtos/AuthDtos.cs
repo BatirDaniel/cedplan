@@ -1,6 +1,6 @@
-using CedPlan.Api.Models;
+using CedPlan.Domain.Enums;
 
-namespace CedPlan.Api.Dtos;
+namespace CedPlan.Application.Dtos;
 
 public record RegisterDto(string FullName, string Email, string Password);
 public record LoginDto(string Email, string Password);

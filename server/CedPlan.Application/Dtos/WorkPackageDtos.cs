@@ -1,6 +1,6 @@
-using CedPlan.Api.Models;
+using CedPlan.Domain.Enums;
 
-namespace CedPlan.Api.Dtos;
+namespace CedPlan.Application.Dtos;
 
 public record AssigneeDto(Guid Id, string FullName, string AvatarColor);
 

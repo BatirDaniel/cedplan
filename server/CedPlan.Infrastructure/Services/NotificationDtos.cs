@@ -1,4 +1,4 @@
-namespace CedPlan.Api.Dtos;
+namespace CedPlan.Infrastructure.Notifications;
 
 public record NotificationChannels(bool InApp, bool Email, bool Push);
 

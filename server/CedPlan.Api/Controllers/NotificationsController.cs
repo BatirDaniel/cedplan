@@ -1,5 +1,7 @@
-using CedPlan.Api.Data;
-using CedPlan.Api.Dtos;
+using CedPlan.Infrastructure.Persistence;
+using CedPlan.Application.Dtos;
+using CedPlan.Infrastructure.Notifications;
+using CedPlan.Infrastructure.Persistence.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -18,7 +20,7 @@ public class NotificationsController : ControllerBase
         _db = db;
     }
 
-    private static NotificationDto ToDto(Models.Notification n) => new(
+    private static NotificationDto ToDto(Notification n) => new(
         n.Id, n.Type, n.Title, n.Body,
         n.ProjectId, n.Project?.Name, n.WorkPackageId, n.WorkPackage?.Subject,
         n.ActorId, n.Actor?.FullName, n.Actor?.AvatarColor,
