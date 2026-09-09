@@ -1,7 +1,8 @@
-using CedPlan.Api.Data;
-using CedPlan.Api.Dtos;
-using CedPlan.Api.Models;
-using CedPlan.Api.Services;
+using CedPlan.Domain.Enums;
+using CedPlan.Infrastructure.Persistence;
+using CedPlan.Application.Dtos;
+using CedPlan.Infrastructure.Persistence.Entities;
+using CedPlan.Infrastructure.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -35,7 +36,7 @@ public class AuthController : ControllerBase
     {
         var ua = Request.Headers.UserAgent.ToString();
         var parsed = UserAgentParser.Parse(ua);
-        var session = new Models.UserSession
+        var session = new UserSession
         {
             UserId = user.Id,
             UserAgent = ua,

@@ -1,6 +1,7 @@
-using CedPlan.Api.Data;
-using CedPlan.Api.Dtos;
-using CedPlan.Api.Models;
+using CedPlan.Domain.Enums;
+using CedPlan.Infrastructure.Persistence;
+using CedPlan.Application.Dtos;
+using CedPlan.Infrastructure.Persistence.Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
