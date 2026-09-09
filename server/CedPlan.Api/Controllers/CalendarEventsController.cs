@@ -1,7 +1,9 @@
-using CedPlan.Api.Data;
-using CedPlan.Api.Dtos;
-using CedPlan.Api.Models;
-using CedPlan.Api.Services;
+using CedPlan.Domain.Access;
+using CedPlan.Domain.Enums;
+using CedPlan.Infrastructure.Persistence;
+using CedPlan.Application.Dtos;
+using CedPlan.Infrastructure.Persistence.Entities;
+using CedPlan.Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,38 +16,24 @@ namespace CedPlan.Api.Controllers;
 public class CalendarEventsController : ControllerBase
 {
     private readonly AppDbContext _db;
-    private readonly PermissionService _permissions;
+    private readonly IProjectAccess _access;
     private readonly NotificationService _notifications;
 
-    public CalendarEventsController(AppDbContext db, PermissionService permissions, NotificationService notifications)
+    public CalendarEventsController(AppDbContext db, IProjectAccess access, NotificationService notifications)
     {
         _db = db;
-        _permissions = permissions;
+        _access = access;
         _notifications = notifications;
     }
 
-    private async Task<ProjectRole?> MyRole(Guid projectId)
-    {
-        var actual = await _db.ProjectMembers
-            .Where(m => m.ProjectId == projectId && m.UserId == this.GetUserId())
-            .Select(m => (ProjectRole?)m.Role)
-            .FirstOrDefaultAsync();
-        if (actual != null) return actual;
+    private Task<bool> IsMember(Guid projectId) => _access.IsMemberAsync(this.GetUserId(), projectId);
 
-        if (await _permissions.HasPermissionAsync(this.GetUserId(), PermissionKeys.ProjectsManageAny))
-            return ProjectRole.Owner;
-
-        return null;
-    }
-
-    private async Task<bool> IsMember(Guid projectId) => await MyRole(projectId) != null;
-
-    private async Task<bool> CanEdit(Guid projectId) => await MyRole(projectId) is ProjectRole role && role >= ProjectRole.Member;
+    private Task<bool> CanEdit(Guid projectId) => _access.CanEditAsync(this.GetUserId(), projectId);
 
     /// <summary>Members may edit only events they created; Admin/Responsible may edit anyone's.</summary>
     private async Task<bool> CanMutate(Guid projectId, CalendarEvent ev)
     {
-        var role = await MyRole(projectId);
+        var role = await _access.GetRoleAsync(this.GetUserId(), projectId);
         if (role is null || role < ProjectRole.Member) return false;
         return ev.CreatedById == this.GetUserId() || role >= ProjectRole.Admin;
     }
