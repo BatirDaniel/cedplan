@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="CedPlan.Api/CedPlan.Api.csproj" />
+  <Project Path="CedPlan.Application/CedPlan.Application.csproj" />
+  <Project Path="CedPlan.Domain/CedPlan.Domain.csproj" />
+  <Project Path="CedPlan.Infrastructure/CedPlan.Infrastructure.csproj" />
+</Solution>
