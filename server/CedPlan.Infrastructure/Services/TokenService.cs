@@ -1,10 +1,11 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using CedPlan.Api.Models;
+using CedPlan.Infrastructure.Persistence.Entities;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
-namespace CedPlan.Api.Services;
+namespace CedPlan.Infrastructure.Services;
 
 public class TokenService
 {

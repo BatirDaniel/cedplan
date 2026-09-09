@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 
-namespace CedPlan.Api.Services;
+namespace CedPlan.Infrastructure.Services;
 
 public record ParsedUserAgent(string Browser, string OperatingSystem, string Device);
 

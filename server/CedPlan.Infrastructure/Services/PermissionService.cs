@@ -1,8 +1,9 @@
-using CedPlan.Api.Data;
-using CedPlan.Api.Models;
+using CedPlan.Domain.Enums;
+using CedPlan.Infrastructure.Persistence;
+using CedPlan.Infrastructure.Persistence.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace CedPlan.Api.Services;
+namespace CedPlan.Infrastructure.Services;
 
 public class PermissionService
 {

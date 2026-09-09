@@ -1,12 +1,12 @@
 using System.Text.Json;
-using CedPlan.Api.Data;
-using CedPlan.Api.Dtos;
-using CedPlan.Api.Hubs;
-using CedPlan.Api.Models;
+using CedPlan.Infrastructure.Persistence;
+using CedPlan.Infrastructure.Notifications;
+using CedPlan.Infrastructure.Hubs;
+using CedPlan.Infrastructure.Persistence.Entities;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 
-namespace CedPlan.Api.Services;
+namespace CedPlan.Infrastructure.Services;
 
 public class NotificationService
 {

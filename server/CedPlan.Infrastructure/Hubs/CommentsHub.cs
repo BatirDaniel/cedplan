@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
-namespace CedPlan.Api.Hubs;
+namespace CedPlan.Infrastructure.Hubs;
 
 [Authorize]
 public class CommentsHub : Hub
